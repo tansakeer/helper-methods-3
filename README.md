@@ -272,6 +272,32 @@ rails g scaffold director name dob:date bio:text
 
 Carefully read through all of the code that was generated. Do you understand all of it now? Ask questions about anything that's fuzzy.
 
+## User accounts with Devise
+
+[Read about the Devise gem.](https://chapters.firstdraft.com/chapters/880) Most professional Rails apps, and from now all of ours, will use the `devise` generator to build out sign-in/sign-out RCAVs. (We'll leave the beginner-oriented `draft:account` behind.)
+
+1. Add `gem "devise"` to your `/Gemfile` and `bundle install`.
+1. `rails g devise user first_name:string last_name:string`
+1. `rails db:migrate`
+1. Check out the user model. You'll see that Devise automatically adds columns for email and password, among other things.
+1. Devise provides the following route helper methods and corresponding RCAVs for free:
+    - (GET) `new_user_registration_path`: displays a sign up form
+    - (GET) `new_user_session_path`: displays a sign in form
+    - (DELETE) `destroy_user_session_path`: signs the user out
+    - (GET) `edit_user_registration_path`: displays an edit profile form
+1. Add links to your navbar to reach the sign up and sign in pages. E.g.:
+
+    ```
+    <%= link_to "Sign up", new_user_registration_path, class: "nav-link" %>
+    
+    <%= link_to "Log in", new_user_session_path, class: "nav-link" %>
+    ```
+1. Sign up for an account.
+1. If someone is signed in, conditionally display sign out/edit profile links in the navbar. You can check if someone is signed in with the `user_signed_in?` method, which is defined by Devise and available in all view templates.
+1. For the edit profile link, make the content of the `<a>` tag the user's first name + last name. You can access the signed in user with the `current_user` helper method, which is defined by Devise and available in all actions and all view templates.
+1. Sign out. (If your sign-out link didn't work, you probably forgot to add `method: :delete` to it.)
+1. Force someone to be signed in by adding the `before_action :authenticate_user!` method to the `ApplicationController`. The `:authenticate_user!` method is defined by Devise.
+
 ## Solutions
 
 You can see my solutions for this project in [this pull request](https://github.com/appdev-projects/helper-methods-3/pull/1/files).
