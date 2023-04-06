@@ -1,30 +1,5 @@
 require "rails_helper"
 
-describe "User authentication" do
-  it "requires sign in before any action with the Devise `before_action :authenticate_user!` method", points: 2 do
-    visit "/movies/new"
-    current_url = page.current_path
-
-    expect(current_url).to eq(new_user_session_path),
-      "Expected `before_action :authenticate_user!` in `ApplicationController` to redirect guest to /users/sign_in before visiting another page."
-  end
-
-  it "allows a user to sign up", points: 2 do
-    old_users_count = User.count
-    visit new_user_registration_path
-
-    fill_in "Email", with: "user@example.com"
-    fill_in "Password", with: "password"
-    fill_in "Password confirmation", with: "password"
-    click_button "Sign up"
-
-    new_users_count = User.count
-
-    expect(old_users_count).to be < new_users_count,
-      "Expected 'Sign up' form on /users/sign_up to successfully add a User record to the database."
-  end
-end
-
 describe "The /movies page" do
   before do
     sign_in_user if user_model_exists?
@@ -169,6 +144,30 @@ describe "The movie edit page" do
   end
 end
 
+describe "User authentication" do
+  it "requires sign in before any action with the Devise `before_action :authenticate_user!` method", points: 2 do
+    visit "/movies/new"
+    current_url = page.current_path
+
+    expect(current_url).to eq(new_user_session_path),
+      "Expected `before_action :authenticate_user!` in `ApplicationController` to redirect guest to /users/sign_in before visiting another page."
+  end
+
+  it "allows a user to sign up", points: 2 do
+    old_users_count = User.count
+    visit new_user_registration_path
+
+    fill_in "Email", with: "user@example.com"
+    fill_in "Password", with: "password"
+    fill_in "Password confirmation", with: "password"
+    click_button "Sign up"
+
+    new_users_count = User.count
+
+    expect(old_users_count).to be < new_users_count,
+      "Expected 'Sign up' form on /users/sign_up to successfully add a User record to the database."
+  end
+end
 
 def sign_in_user
   user = User.create(email: "alice@example.com", password: "password")
