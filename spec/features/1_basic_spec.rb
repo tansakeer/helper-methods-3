@@ -144,7 +144,7 @@ describe "The movie edit page" do
   end
 end
 
-describe "User authentication" do
+describe "User authentication with the Devise gem" do
   it "requires sign in before any action with the Devise `before_action :authenticate_user!` method", points: 2 do
     visit "/movies/new"
     current_url = page.current_path
