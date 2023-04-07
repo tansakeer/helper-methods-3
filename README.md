@@ -277,6 +277,7 @@ Carefully read through all of the code that was generated. Do you understand all
 [Read about the Devise gem.](https://chapters.firstdraft.com/chapters/880) Most professional Rails apps, and from now all of ours, will use the `devise` generator to build out sign-in/sign-out RCAVs. (We'll leave the beginner-oriented `draft:account` behind.)
 
 1. Add `gem "devise"` to your `/Gemfile` and `bundle install`.
+1. `rails g devise:install`
 1. `rails g devise user first_name:string last_name:string`
 1. `rails db:migrate`
 1. Check out the user model. You'll see that Devise automatically adds columns for email and password, among other things.
