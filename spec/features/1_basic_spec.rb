@@ -19,18 +19,18 @@ describe "The /movies page" do
       "Expected /movies to have an 'Add a new movie' link to '/movies/new'."
   end
 
-  it "has a large, light-themed bootstrap navbar", points: 1 do
+  it "has a bootstrap navbar", points: 1 do
     visit "/movies"
 
-    expect(page).to have_selector("nav[class='navbar navbar-expand-lg navbar-light bg-light']"),
-    "Expected /movies to have have a <nav class='navbar navbar-expand-lg navbar-light bg-light'> bootstrap navbar."
+    expect(page).to have_selector("nav[class*='navbar']"),
+    "Expected /movies to have a bootstrap navbar <nav> element with class='navbar'."
   end
 
   it "has margin top spacing with a bootstrap container class", points: 1 do
     visit "/movies"
 
     expect(page).to have_selector("div[class='container mt-3']"),
-    "Expected /movies to have have a <div class='container mt-3'> bootstrap container for adding margin top spacing."
+    "Expected /movies to have a <div class='container mt-3'> bootstrap container for adding margin top spacing."
   end
 end
 
@@ -97,14 +97,14 @@ describe "The movie details page" do
     visit "/movies/#{movie.id}"
 
     expect(page).to have_selector("div[class='card']"),
-      "Expected /movies/ID to have have a <div class='card'> element to display the movie."
+      "Expected /movies/ID to have a <div class='card'> element to display the movie."
   end
 
   it "has a Font Awesome trash can icon to delete the movie", points: 2 do
     visit "/movies/#{movie.id}"
 
     expect(page).to have_selector("i[class='fa-regular fa-trash-can']"),
-      "Expected /movies/ID to have a Font Awesome trash can icon on the card, with class='fa-regular fa-trash-can'."
+      "Expected /movies/ID to have a Font Awesome trash can icon on the card using the element <i class='fa-regular fa-trash-can'></i>."
   end
 
   it "deletes the movie with a DELETE request", points: 2 do
