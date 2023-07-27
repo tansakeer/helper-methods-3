@@ -18,7 +18,7 @@ class MoviesController < ApplicationController
   end
 
   def create
-    movie_params = params.require(:movie).permit(:title, :description)
+    movie_params = params.require(:movie).permit(:title, :description, :image_url, :director_id)
     
     @movie = Movie.new(movie_params)
 

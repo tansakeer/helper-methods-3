@@ -43,9 +43,12 @@
           <%= link_to "Movies", movies_path, class: "nav-link" %>
         <%#  <a class="nav-link active" aria-current="page" href="#">Home</a> %>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <%= link_to "Directors", directors_path, class: "nav-link" %>
+        <%#  <a class="nav-link active" aria-current="page" href="#">Home</a> %>
         </li>
+    
         
       </ul>
       <form class="d-flex">
@@ -56,15 +59,22 @@
   </div>
 </nav>
 
+<div class="container mt-4">
 
-    <div style="color: green;">
+ <%if notice.present? %>
+      <div class="alert alert-success" role="alert">
       <%= notice %>
     </div>
+<% end %>
 
-    <div style="color: red;">
+<% if alert.present? %>
+    <div class="alert alert-danger" role="alert">
       <%= alert %>
     </div>
+<% end %>
     
     <%= yield %>
+
+</div>
   </body>
 </html>
