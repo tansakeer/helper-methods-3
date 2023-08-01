@@ -13,21 +13,24 @@ class MoviesController < ApplicationController
     end
   end
 
+  def movie_params
+    params.require(:movie).permit(:title, :description, :image_url, :director_id)
+  end 
+
   def show
     @movie = Movie.find(params.fetch(:id))
   end
 
   def create
-    movie_params = params.require(:movie).permit(:title, :description, :image_url, :director_id)
     
-    @movie = Movie.new(movie_params)
+    @movie = Movie.new(self.movie_params)
 
     if @movie.valid?
       @movie.save
 
       redirect_to movies_url, notice: "Movie created successfully."
     else
-      render "new"
+      render "new", notice: "NOT created successfully."
     end
   end
 
@@ -35,12 +38,12 @@ class MoviesController < ApplicationController
     @movie = Movie.find(params.fetch(:id))
   end
 
-  def update
-    @movie = Movie.find(params.fetch(:id))
 
-    movie_params = params.require(:movie).permit(:title, :description)
+
+  def update
+    @movie = Movie.find(params.fetch(:id)) 
     
-    if @movie.update(movie_params)
+    if @movie.update(self.movie_params)
       redirect_to @movie, notice: "Movie updated successfully."
     else
       render "edit"
